@@ -7,9 +7,10 @@ from keras.layers import ThresholdedReLU
 from keras.layers import Dropout
 from keras.optimizers import Adam
 
-print "Loading the configurations...",
+print ("Loading the configurations..."),
 
-execfile("config.py")
+exec(compile(open('config.py', "rb").read(), 'config.py', 'exec'))
+
 conv_layers = config.model.conv_layers
 fully_layers = config.model.fully_connected_layers
 l0 = config.l0
@@ -18,10 +19,10 @@ embedding_size = config.model.embedding_size
 num_of_classes = config.num_of_classes
 th = config.model.th
 p = config.dropout_p
-print "Loaded"
+print ("Loaded")
 
 
-print "Building the model...",
+print ("Building the model..."),
 # building the model
 
 # Input layer
@@ -56,17 +57,17 @@ model = Model(input=inputs, output=predictions)
 
 optimizer = Adam()
 
-model.compile(optimizer=optimizer, loss='categorical_crossentropy')
+model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
 
 	
-print "Built"
+print ("Built")
 
 
-print "Loading the data sets...",
+print ("Loading the data sets..."),
 
 from data_utils import Data
 
-train_data = Data(data_source = config.train_data_source, 
+train_data = Data(data_source = config.train_data_source,
                      alphabet = config.alphabet,
                      l0 = config.l0,
                      batch_size = 0,
@@ -76,25 +77,26 @@ train_data.loadData()
 
 X_train, y_train = train_data.getAllData()
 
-dev_data = Data(data_source = config.dev_data_source,
-                      alphabet = config.alphabet,
-                      l0 = config.l0,
-                      batch_size = 0,
-                      no_of_classes = config.num_of_classes)
+# dev_data = Data(data_source = config.dev_data_source,
+#                       alphabet = config.alphabet,
+#                       l0 = config.l0,
+#                       batch_size = 0,
+#                       no_of_classes = config.num_of_classes)
+#
+#
+# dev_data.loadData()
+#
+# X_val, y_val = dev_data.getAllData()
+
+print ("Loadded")
 
 
-dev_data.loadData()
+print ("Training ...")
 
-X_val, y_val = dev_data.getAllData()
+model.fit(X_train, y_train, nb_epoch=config.training.epochs,
+          batch_size=config.batch_size, validation_split=0.2)
 
-print "Loadded"
-
-
-print "Training ..."
-
-model.fit(X_train, y_train, nb_epoch=config.training.epochs, batch_size=config.batch_size, validation_data=(X_val, y_val))
-
-print "Done!."
+print ("Done!.")
 
 
 

@@ -1,6 +1,8 @@
 import numpy as np 
 import re 
 import csv
+
+
 class Data(object):
     
     def __init__(self,
@@ -22,7 +24,7 @@ class Data(object):
         self.data_source = data_source
     def loadData(self):
         data = []
-        with open(self.data_source, 'rb') as f:
+        with open(self.data_source, 'r') as f:
             rdr = csv.reader(f, delimiter=',', quotechar='"')
             for row in rdr:
                 txt = ""

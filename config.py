@@ -1,4 +1,6 @@
-config = {} 
+config = {}
+
+
 class TrainingConfig(object):
     
     base_rate = 1e-2
@@ -8,6 +10,8 @@ class TrainingConfig(object):
     epochs = 5000
     evaluate_every = 100
     checkpoint_every = 100
+
+
 class ModelConfig(object):
     conv_layers = [[256, 7, 3],
                    [256, 7, 3],
@@ -27,10 +31,10 @@ class Config(object):
     alphabet_size = len(alphabet)
     l0 = 1014
     batch_size = 128
-    num_of_classes = 4
+    num_of_classes = 23
     dropout_p = 0.5
-    train_data_source = 'data/ag_news_csv/train.csv'
-    dev_data_source = 'data/ag_news_csv/test.csv'
+    train_data_source = '../data/ou/raw/ou_qc_2017_title_desc.csv'
+    # dev_data_source = '../data/ag_news_csv/test.csv'
     
     training = TrainingConfig()
     
