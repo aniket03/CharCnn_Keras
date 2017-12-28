@@ -29,7 +29,7 @@ class ModelConfig(object):
 class Config(object):
     alphabet = "abcdefghijklmnopqrstuvwxyz0123456789-,;.!?:'\"/\\|_@#$%^&*~`+-=<>()[]{}"
     alphabet_size = len(alphabet)
-    l0 = 1014
+    l0 = 2000
     batch_size = 128
     num_of_classes = 23
     dropout_p = 0.5
